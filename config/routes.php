@@ -55,7 +55,7 @@ return function (RouteBuilder $routes): void {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/', ['controller' => 'Users', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -75,6 +75,10 @@ return function (RouteBuilder $routes): void {
          * It is NOT recommended to use fallback routes after your initial prototyping phase!
          * See https://book.cakephp.org/5/en/development/routing.html#fallbacks-method for more information
          */
+
+        // Route personalisée
+        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+
         $builder->fallbacks();
     });
 
