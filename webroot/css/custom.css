@@ -1,0 +1,122 @@
+/* Mise en page globale */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Fond clair et neutre */
+    color: #333; /* Texte sombre pour une bonne lisibilité */
+}
+
+/* Modification de l'en-tête (nav) */
+.top-nav {
+    background-color: #333; /* Gris foncé pour l'en-tête */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.top-nav-title a {
+    color: #ffffff; /* Blanc pour le texte du titre */
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.top-nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    margin-right: 15px;
+    color: white;
+}
+
+.top-nav-links a.button {
+    background-color: #d33c43;
+    color: white;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.top-nav-links a.button:hover {
+    background-color: #404041; 
+}
+
+/* Footer - Ancré en bas de page */
+.main-footer {
+    background-color: #f9f9f9; /* Fond très clair pour le footer */
+    color: #555; /* Texte plus foncé pour une lecture facile */
+    text-align: center;
+    padding: 20px 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.main-footer .footer-content p {
+    margin: 5px 0;
+}
+
+.main-footer a {
+    color: #333; /* Gris foncé pour le lien */
+    text-decoration: none;
+}
+
+.main-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Container principal */
+.container {
+    padding: 20px;
+    background-color: #ffffff; /* Fond blanc pour la zone de contenu */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 100%;
+    margin-bottom: 60px; /* Laisser de la place pour le footer */
+}
+
+/* Style des boutons de déconnexion et de connexion */
+.logout-button, .login-button {
+    background-color: #333;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    
+    /* Centrer le texte horizontalement et verticalement */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    text-align: center; /* Assure que le texte est centré dans le bouton */
+}
+
+.logout-button:hover, .login-button:hover {
+    background-color: #555;
+}
+
+/* Ajout d'un effet de survol sur le lien de la connexion / déconnexion */
+.user-info a {
+    color: #333; /* Gris foncé pour le lien */
+    text-decoration: none;
+}
+
+.user-info a:hover {
+    text-decoration: underline;
+}
+
+span
+{
+    color: #d33c43 !important;
+}

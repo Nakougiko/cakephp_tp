@@ -58,4 +58,15 @@ class AppController extends Controller
         // index et view publiques, en ignorant la vérification d'authentification
         $this->Authentication->addUnauthenticatedActions(['index', 'view']);
     }
+
+    /**
+     * Méthode de déconnexion (ajoutée pour la gestion manuelle du logout)
+     * 
+     * @return \Cake\Http\Response|null
+     */
+    public function logout()
+    {
+        $this->Authentication->logout();
+        return $this->redirect(['action'=> 'index']);
+    }
 }

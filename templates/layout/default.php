@@ -7,7 +7,7 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @copyright     Copyright (c) Cake Software Foundation, Inc.
  * @link          https://cakephp.org CakePHP(tm) Project
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
@@ -27,7 +27,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <!-- CSS par défaut de CakePHP -->
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?>
+    
+    <!-- Ajout de custom.css pour personnalisation -->
+    <?= $this->Html->css('custom') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -36,11 +40,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <a href="<?= $this->Url->build('/') ?>"><span>TP</span> Lukas</a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+            <?php if ($this->request->getAttribute('identity')): ?>
+                <div class="user-info">
+                    Bienvenue, <?= h($this->request->getAttribute('identity')->prenom) ?> <?= h($this->request->getAttribute('identity')->nom) ?>
+                    <?= $this->Html->link('Déconnexion', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'button logout-button']) ?>
+                </div>
+            <?php else: ?>
+                <?= $this->Html->link('Connexion', ['controller' => 'Users', 'action' => 'login'], ['class' => 'button login-button']) ?>
+            <?php endif; ?>
         </div>
     </nav>
     <main class="main">
@@ -49,7 +59,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->fetch('content') ?>
         </div>
     </main>
-    <footer>
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; <?= date('Y') ?> GOULOIS Lukas. Tous droits réservés.</p>
+            <p>Propulsé avec <a href="https://cakephp.org" target="_blank">CakePHP</a>.</p>
+        </div>
     </footer>
 </body>
 </html>

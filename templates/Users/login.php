@@ -9,6 +9,4 @@
     </fieldset>
     <?= $this->Form->submit(__('Login')); ?>
     <?= $this->Form->end() ?>
-
-    <?= $this->Html->link("Ajouter un utilisateur", ['action' => 'add']) ?>
 </div>
