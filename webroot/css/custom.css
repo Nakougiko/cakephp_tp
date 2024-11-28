@@ -120,3 +120,48 @@ span
 {
     color: #d33c43 !important;
 }
+
+/* Menu latéral gauche */
+#menu {
+    width: 200px;
+    background-color: #f4f4f4; /* Fond clair pour le menu */
+    padding: 10px;
+    border-right: 2px solid #ccc;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#menu ul {
+    list-style: none; /* Supprime les puces */
+    padding: 0;
+    margin: 0;
+}
+
+#menu li {
+    margin-bottom: 10px; /* Espacement entre les éléments */
+}
+
+#menu li:last-child {
+    margin-bottom: 0; /* Pas de marge pour le dernier élément */
+}
+
+#menu a {
+    display: block;
+    padding: 10px 15px;
+    background-color: #ffffff; /* Fond blanc pour les liens */
+    color: #333; /* Texte gris foncé */
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: bold; /* Texte en gras */
+}
+
+#menu a:hover {
+    background-color: #d33c43; /* Fond rouge clair au survol */
+    color: white; /* Texte blanc au survol */
+}
+
+#menu a.active {
+    background-color: #d33c43; /* Fond rouge clair pour l'actif */
+    color: white;
+    font-weight: bold; /* Met en évidence l'élément actif */
+}

@@ -54,9 +54,26 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     </nav>
     <main class="main">
-        <div class="container">
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
+        <div class="container" style="display: flex;">
+            <!-- Menu à gauche -->
+            <div id="menu" style="width: 200px; background-color: #f4f4f4; padding: 10px; border-right: 2px solid #ccc;">
+                <ul>
+                    <?php
+                    // Récupération des menus dans la table
+                    $menus = \Cake\ORM\TableRegistry::getTableLocator()->get('Menus')->find('all')->order(['ordre' => 'ASC']);
+                    foreach ($menus as $menu): ?>
+                        <li>
+                            <a href="/Projets/cakephp_tp<?= $menu->lien ?>"><?= h($menu->intitule) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <!-- Contenu principal -->
+            <div id="content" style="flex: 1; padding: 20px;">
+                <?= $this->Flash->render() ?>
+                <?= $this->fetch('content') ?>
+            </div>
         </div>
     </main>
     <footer class="main-footer">
