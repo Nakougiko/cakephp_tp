@@ -97,4 +97,33 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // Configurez l'action de connexion pour ne pas exiger d'authentification,
+        // évitant ainsi le problème de la boucle de redirection infinie
+        $this->Authentication->addUnauthenticatedActions(['login']);
+    }
+
+    public function login()
+    {
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        // indépendamment de POST ou GET, rediriger si l'utilisateur est connecté
+        if ($result && $result->isValid()) {
+            // rediriger vers /users après la connexion réussie
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Users',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
+        }
+        // afficher une erreur si l'utilisateur a soumis un formulaire
+        // et que l'authentification a échoué
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('Votre identifiant ou votre mot de passe est incorrect.'));
+        }
+    }
 }
