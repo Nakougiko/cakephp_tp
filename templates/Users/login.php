@@ -9,4 +9,8 @@
     </fieldset>
     <?= $this->Form->submit(__('Login')); ?>
     <?= $this->Form->end() ?>
+    
+    <!-- Lien vers la page mot de passe oublié -->
+    <p><?= $this->Html->link('Mot de passe oublié', ['action' => 'forgotPassword']) ?></p>
+
 </div>

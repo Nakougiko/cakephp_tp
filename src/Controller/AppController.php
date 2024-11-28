@@ -56,7 +56,7 @@ class AppController extends Controller
         parent::beforeFilter($event);
         // pour tous les contrôleurs de notre application, rendre les actions
         // index et view publiques, en ignorant la vérification d'authentification
-        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+        $this->Authentication->addUnauthenticatedActions(['index', 'forgotPassword', 'login']);
     }
 
     /**

@@ -51,50 +51,38 @@ return function (RouteBuilder $routes): void {
 
     $routes->scope('/', function (RouteBuilder $builder): void {
         /*
-         * Here, we are connecting '/' (base path) to a controller called 'Pages',
-         * its action called 'display', and we pass a param to select the view file
-         * to use (in this case, templates/Pages/home.php)...
+         * Page d'accueil des utilisateurs
          */
         $builder->connect('/', ['controller' => 'Users', 'action' => 'index']);
 
         /*
-         * ...and connect the rest of 'Pages' controller's URLs.
+         * Page de connexion
+         */
+        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
+
+        /*
+         * Page de déconnexion
+         */
+        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
+
+        /*
+         * Page de mot de passe oublié
+         */
+        $builder->connect('/users/forgotPassword', ['controller' => 'Users', 'action' => 'forgotPassword']);
+
+
+        /*
+         * Pages par défaut pour l'affichage des autres pages (si tu en as besoin)
          */
         $builder->connect('/pages/*', 'Pages::display');
 
         /*
-         * Connect catchall routes for all controllers.
-         *
-         * The `fallbacks` method is a shortcut for
-         *
-         * ```
-         * $builder->connect('/{controller}', ['action' => 'index']);
-         * $builder->connect('/{controller}/{action}/*', []);
-         * ```
-         *
-         * It is NOT recommended to use fallback routes after your initial prototyping phase!
-         * See https://book.cakephp.org/5/en/development/routing.html#fallbacks-method for more information
+         * Route catchall pour tous les contrôleurs. Cela permet d'ajouter des routes génériques.
          */
-
-        // Route personalisée
-        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
-
         $builder->fallbacks();
     });
 
     /*
-     * If you need a different set of middleware or none at all,
-     * open new scope and define routes there.
-     *
-     * ```
-     * $routes->scope('/api', function (RouteBuilder $builder): void {
-     *     // No $builder->applyMiddleware() here.
-     *
-     *     // Parse specified extensions from URLs
-     *     // $builder->setExtensions(['json', 'xml']);
-     *
-     *     // Connect API actions here.
-     * });
-     * ```
+     * Si tu as des routes API ou une autre configuration spécifique, tu peux ajouter ici.
      */
 };

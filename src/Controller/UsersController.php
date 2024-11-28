@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Mailer\Mailer;
+
 /**
  * Users Controller
  *
@@ -124,6 +126,59 @@ class UsersController extends AppController
         // et que l'authentification a échoué
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Votre identifiant ou votre mot de passe est incorrect.'));
+        }
+    }
+
+    public function forgotPassword()
+    {
+        // Si l'utilisateur est déjà connecté, redirige-le vers la page d'accueil
+        if ($this->Authentication->getIdentity()) {
+            return $this->redirect(['action' => 'index']);
+        }
+
+        // Si le formulaire est soumis
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $user = $this->Users->findByEmail($email)->first();
+
+            // Si l'utilisateur n'existe pas
+            if (!$user) {
+                $this->Flash->error(__('Aucun utilisateur trouvé avec cet email.'));
+                return;
+            }
+
+            // Générer un nouveau mot de passe
+            $newPassword = bin2hex(random_bytes(8)); // Générer un mot de passe aléatoire de 8 caractères
+            // $newPassword = '12345678'; // Mot de passe temporaire pour les tests
+            // Mettre à jour le mot de passe de l'utilisateur
+            $user->password = $newPassword;
+            if ($this->Users->save($user)) {
+                // Envoi de l'email avec le nouveau mot de passe
+                if ($this->_sendResetPasswordEmail($user->email, $newPassword)) {
+                    $this->Flash->success(__('Un nouveau mot de passe a été envoyé à votre adresse email.'));
+                } else {
+                    $this->Flash->error(__('Une erreur est survenue lors de l\'envoi du nouveau mot de passe.'));
+                }
+            } else {
+                $this->Flash->error(__('Le mot de passe n\'a pas pu être réinitialisé.'));
+            }
+        }
+    }
+
+    private function _sendResetPasswordEmail($email, $newPassword)
+    {
+        try {
+            $mailer = new Mailer('default');
+            $mailer->setFrom(['noreply@gouloislukas.com' => 'GOULOIS Lukas TP'])
+                   ->setTo($email)
+                   ->setSubject('Réinitialisation de votre mot de passe')
+                   ->deliver('Votre nouveau mot de passe est : ' . $newPassword);
+    
+            return true;  // Si l'email a été envoyé avec succès
+        } catch (\Exception $e) {
+            // Si une erreur se produit lors de l'envoi de l'email
+            $this->log('Erreur lors de l\'envoi du mail : ' . $e->getMessage(), 'error');
+            return false;
         }
     }
 }
