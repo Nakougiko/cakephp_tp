@@ -50,6 +50,8 @@ return function (RouteBuilder $routes): void {
     $routes->setRouteClass(DashedRoute::class);
 
     $routes->scope('/', function (RouteBuilder $builder): void {
+        $builder->connect('/Projets/*', ['controller' => 'Pages', 'action' => 'display']);
+
         /*
          * Page d'accueil des utilisateurs
          */
@@ -69,6 +71,10 @@ return function (RouteBuilder $routes): void {
          * Page de mot de passe oublié
          */
         $builder->connect('/users/forgotPassword', ['controller' => 'Users', 'action' => 'forgotPassword']);
+
+        // config/routes.php
+        $builder->connect('/menus/reorder', ['controller' => 'Menus', 'action' => 'reorder']);
+
 
 
         /*

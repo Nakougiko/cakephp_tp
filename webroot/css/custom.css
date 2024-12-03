@@ -75,14 +75,16 @@ body, html {
     text-decoration: underline;
 }
 
-/* Container principal */
+/* Conteneur principal */
 .container {
+    display: flex; /* Place les éléments côte à côte */
     padding: 20px;
-    background-color: #ffffff; /* Fond blanc pour la zone de contenu */
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-height: 100%;
-    margin-bottom: 60px; /* Laisser de la place pour le footer */
+    min-height: 100vh; /* S'assure que le conteneur prend toute la hauteur */
+    flex-direction: row; /* Les éléments sont disposés horizontalement */
+    margin-bottom: 60px;
 }
 
 /* Style des boutons de déconnexion et de connexion */
@@ -123,11 +125,13 @@ span
 
 /* Menu latéral gauche */
 #menu {
-    width: 200px;
-    background-color: #f4f4f4; /* Fond clair pour le menu */
-    padding: 10px;
-    border-right: 2px solid #ccc;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Largeur fixe */
+    background-color: #f4f4f4; /* Fond clair */
+    padding: 15px; /* Espacement interne */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    border-right: 1px solid #ccc; /* Ligne de séparation */
+    flex-shrink: 0; /* Empêche le redimensionnement */
+    z-index: 10; /* Priorité pour les clics */
 }
 
 #menu ul {
@@ -145,13 +149,8 @@ span
 }
 
 #menu a {
-    display: block;
-    padding: 10px 15px;
-    background-color: #ffffff; /* Fond blanc pour les liens */
-    color: #333; /* Texte gris foncé */
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none; /* Pas de soulignement */
+    color: #333; /* Couleur du texte */
     font-weight: bold; /* Texte en gras */
 }
 
@@ -164,4 +163,50 @@ span
     background-color: #d33c43; /* Fond rouge clair pour l'actif */
     color: white;
     font-weight: bold; /* Met en évidence l'élément actif */
+}
+
+#sortableMenu {
+    list-style-type: none; /* Supprime les puces */
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    cursor: move; /* Curseur pour indiquer qu'on peut déplacer */
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Effet au survol */
+.menu-item:hover {
+    background-color: #e3e3e3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'élément lorsque l'utilisateur le déplace */
+.ui-sortable-placeholder {
+    border: 1px dashed #bbb;
+    background-color: #f9f9f9;
+    visibility: visible !important;
+}
+
+/* Style des éléments lors du glissement */
+.ui-sortable-helper {
+    background-color: #f0f0f0;
+    opacity: 0.7;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenu principal */
+#content {
+    flex: 1; /* Prend tout l'espace restant */
+    padding: 20px; /* Espacement interne */
+    background-color: #ffffff; /* Fond blanc */
+    overflow: auto; /* Scrolling si nécessaire */
+    z-index: 1; /* Assure que le contenu est bien en arrière-plan */
 }

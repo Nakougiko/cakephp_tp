@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\ForbiddenException;
+
 /**
  * Menus Controller
  *
@@ -97,4 +99,28 @@ class MenusController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function reorder()
+    {
+        $this->request->allowMethod(['ajax', 'post']); // Limite l'accès à AJAX et POST uniquement
+        $this->autoRender = false; // Empêche CakePHP de chercher un fichier de vue
+    
+        $order = $this->request->getData('order'); // Récupère l'ordre envoyé depuis la requête
+        if ($order) {
+            foreach ($order as $index => $id) {
+                $menu = $this->Menus->get($id); // Charge le menu par son ID
+                $menu->ordre = $index + 1; // Met à jour l'ordre
+                $this->Menus->save($menu); // Sauvegarde les modifications
+            }
+            $this->response = $this->response->withStringBody(json_encode(['status' => 'success']));
+        } else {
+            $this->response = $this->response->withStatus(400)->withStringBody(json_encode(['status' => 'error']));
+        }
+    
+        return $this->response->withType('application/json'); // Retourne une réponse JSON
+    }
+    
+
+
+
 }
