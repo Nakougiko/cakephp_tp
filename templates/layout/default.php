@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'TP CakePHP';
 ?>
 
 <?php
@@ -59,7 +59,9 @@ use Cake\Routing\Router;
         <div class="top-nav-title">
             <a href="<?= $this->Url->build('/') ?>"><span>TP</span> Lukas</a>
         </div>
+        <!-- Ajout d'un bouton hamburger dans le nav -->
         <div class="top-nav-links">
+            <button id="menu-toggle" class="menu-toggle">☰</button>
             <?php if ($this->request->getAttribute('identity')): ?>
                 <div class="user-info">
                     Bienvenue, <?= h($this->request->getAttribute('identity')->prenom) ?>
@@ -70,6 +72,7 @@ use Cake\Routing\Router;
                 <?= $this->Html->link('Connexion', ['controller' => 'Users', 'action' => 'login'], ['class' => 'button login-button']) ?>
             <?php endif; ?>
         </div>
+
     </nav>
     <main class="main">
         <div class="container" style="display: flex;">
@@ -90,7 +93,7 @@ use Cake\Routing\Router;
             <?php endif; ?>
 
             <!-- Contenu principal -->
-            <div id="content" style="flex: 1; padding: 20px;">
+            <div id="content">
                 <?= $this->Flash->render() ?>
                 <?= $this->fetch('content') ?>
             </div>
@@ -134,6 +137,12 @@ use Cake\Routing\Router;
             }
         });
 
+
+        $(document).ready(function () {
+            $('#menu-toggle').click(function () {
+                $('#menu').toggle();  // Affiche ou masque le menu latéral
+            });
+        });
     </script>
 </body>
 

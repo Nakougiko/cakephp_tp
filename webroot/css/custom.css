@@ -1,26 +1,51 @@
+/* Variables CSS pour une meilleure gestion des couleurs */
+:root {
+    --primary-color: #d33c43;
+    --secondary-color: #333;
+    --bg-light: #f9f9f9;
+    --bg-dark: #404041;
+    --bg-menu: #f4f4f4;
+    --text-light: #ffffff;
+    --text-dark: #333;
+    --border-color: #ccc;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Mise en page globale */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9; /* Fond clair et neutre */
-    color: #333; /* Texte sombre pour une bonne lisibilité */
+    background-color: var(--bg-light);
+    color: var(--text-dark);
 }
 
-/* Modification de l'en-tête (nav) */
-.top-nav {
-    background-color: #333; /* Gris foncé pour l'en-tête */
-    color: white;
+/* Conteneur principal */
+.container {
     display: flex;
-    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--text-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    margin-bottom: 60px; /* Laisser de la place pour le footer */
+}
+
+/* En-tête (nav) */
+.top-nav {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
     align-items: center;
     padding: 15px 25px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px var(--shadow-color);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .top-nav-title a {
-    color: #ffffff; /* Blanc pour le texte du titre */
+    color: var(--text-light);
     font-weight: bold;
     font-size: 28px;
     text-decoration: none;
@@ -31,14 +56,14 @@ body, html {
     align-items: center;
 }
 
-.user-info {
-    margin-right: 15px;
-    color: white;
+/* Masque le menu burger sur les écrans larges et tablettes */
+.menu-toggle {
+    display: none; /* Masque l'icône burger sur les écrans larges et tablettes */
 }
 
 .top-nav-links a.button {
-    background-color: #d33c43;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-light);
     padding: 8px 16px;
     margin-left: 10px;
     border-radius: 4px;
@@ -48,13 +73,13 @@ body, html {
 }
 
 .top-nav-links a.button:hover {
-    background-color: #404041; 
+    background-color: var(--bg-dark);
 }
 
-/* Footer - Ancré en bas de page */
+/* Footer */
 .main-footer {
-    background-color: #f9f9f9; /* Fond très clair pour le footer */
-    color: #555; /* Texte plus foncé pour une lecture facile */
+    background-color: var(--bg-light);
+    color: #555;
     text-align: center;
     padding: 20px 10px;
     position: absolute;
@@ -67,7 +92,7 @@ body, html {
 }
 
 .main-footer a {
-    color: #333; /* Gris foncé pour le lien */
+    color: var(--text-dark);
     text-decoration: none;
 }
 
@@ -75,42 +100,27 @@ body, html {
     text-decoration: underline;
 }
 
-/* Conteneur principal */
-.container {
-    display: flex; /* Place les éléments côte à côte */
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-height: 100vh; /* S'assure que le conteneur prend toute la hauteur */
-    flex-direction: row; /* Les éléments sont disposés horizontalement */
-    margin-bottom: 60px;
-}
-
-/* Style des boutons de déconnexion et de connexion */
+/* Boutons (connexion/déconnexion) */
 .logout-button, .login-button {
-    background-color: #333;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
     padding: 8px 15px;
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease;
-    
-    /* Centrer le texte horizontalement et verticalement */
     display: flex;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
-    text-align: center; /* Assure que le texte est centré dans le bouton */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
 }
 
 .logout-button:hover, .login-button:hover {
     background-color: #555;
 }
 
-/* Ajout d'un effet de survol sur le lien de la connexion / déconnexion */
+/* Liens utilisateurs */
 .user-info a {
-    color: #333; /* Gris foncé pour le lien */
+    color: var(--text-dark);
     text-decoration: none;
 }
 
@@ -118,95 +128,227 @@ body, html {
     text-decoration: underline;
 }
 
-span
-{
-    color: #d33c43 !important;
+span {
+    color: var(--primary-color) !important;
 }
 
 /* Menu latéral gauche */
 #menu {
-    width: 250px; /* Largeur fixe */
-    background-color: #f4f4f4; /* Fond clair */
-    padding: 15px; /* Espacement interne */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
-    border-right: 1px solid #ccc; /* Ligne de séparation */
-    flex-shrink: 0; /* Empêche le redimensionnement */
-    z-index: 10; /* Priorité pour les clics */
+    width: 200px;
+    background-color: var(--bg-menu);
+    padding: 10px;
+    border-right: 2px solid var(--border-color);
+    box-shadow: 2px 0 5px var(--shadow-color);
+    height: 100%;
+    display: block; /* Menu visible pour les grands écrans */
 }
 
 #menu ul {
-    list-style: none; /* Supprime les puces */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 #menu li {
-    margin-bottom: 10px; /* Espacement entre les éléments */
-}
-
-#menu li:last-child {
-    margin-bottom: 0; /* Pas de marge pour le dernier élément */
+    margin-bottom: 10px;
 }
 
 #menu a {
-    text-decoration: none; /* Pas de soulignement */
-    color: #333; /* Couleur du texte */
-    font-weight: bold; /* Texte en gras */
+    display: block;
+    padding: 10px 15px;
+    background-color: var(--text-light);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: bold;
 }
 
 #menu a:hover {
-    background-color: #d33c43; /* Fond rouge clair au survol */
-    color: white; /* Texte blanc au survol */
+    background-color: var(--primary-color);
+    color: var(--text-light);
 }
 
 #menu a.active {
-    background-color: #d33c43; /* Fond rouge clair pour l'actif */
-    color: white;
-    font-weight: bold; /* Met en évidence l'élément actif */
-}
-
-#sortableMenu {
-    list-style-type: none; /* Supprime les puces */
-    padding: 0;
-    margin: 0;
-}
-
-.menu-item {
-    cursor: move; /* Curseur pour indiquer qu'on peut déplacer */
-    padding: 8px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.2s, box-shadow 0.2s;
-}
-
-/* Effet au survol */
-.menu-item:hover {
-    background-color: #e3e3e3;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Style de l'élément lorsque l'utilisateur le déplace */
-.ui-sortable-placeholder {
-    border: 1px dashed #bbb;
-    background-color: #f9f9f9;
-    visibility: visible !important;
-}
-
-/* Style des éléments lors du glissement */
-.ui-sortable-helper {
-    background-color: #f0f0f0;
-    opacity: 0.7;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    font-weight: bold;
 }
 
 /* Contenu principal */
 #content {
-    flex: 1; /* Prend tout l'espace restant */
-    padding: 20px; /* Espacement interne */
-    background-color: #ffffff; /* Fond blanc */
-    overflow: auto; /* Scrolling si nécessaire */
-    z-index: 1; /* Assure que le contenu est bien en arrière-plan */
+    flex: 1;
+    padding: 20px;
+    background-color: var(--text-light);
+    overflow: auto;
+    max-height: 100%;
+}
+
+/* Media Queries pour rendre la page responsive */
+
+/* Mobile (écrans de 320px à 480px) */
+@media (max-width: 480px) {
+    /* Cacher le menu latéral normalement */
+    #menu {
+        display: none;
+        position: absolute; /* Pour le rendre "flottant" par-dessus le contenu */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-menu);
+        z-index: 1000; /* Met le menu au-dessus du contenu */
+        box-shadow: 2px 0 5px var(--shadow-color); /* Optionnel : ajout d'une ombre */
+    }
+
+    /* Afficher le menu burger uniquement sur mobile */
+    .menu-toggle {
+        display: block; /* Menu burger visible sur mobile */
+        z-index: 1001; /* Placer le bouton burger au-dessus du menu */
+    }
+
+    /* Contenu principal */
+    #content {
+        position: relative; /* Assurer que le contenu soit bien positionné sous le menu */
+        z-index: 1; /* Placer le contenu sous le menu */
+    }
+
+    /* Navigation */
+    .top-nav {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+
+    .top-nav-title a {
+        font-size: 22px;
+    }
+
+    .top-nav-links {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .top-nav-links a.button {
+        margin-left: 5px;
+        padding: 6px 12px;
+    }
+
+    /* Conteneur */
+    .container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    /* Footer */
+    .main-footer {
+        padding: 15px 5px;
+    }
+
+    /* Ajustements pour le contenu principal */
+    #content {
+        padding: 10px;
+    }
+}
+
+/* Tablette (écrans de 481px à 768px) */
+@media (max-width: 768px) {
+    /* Cacher le menu latéral */
+    #menu {
+        display: none;
+    }
+
+    /* Ne pas afficher le menu burger sur tablette */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Navigation */
+    .top-nav {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .top-nav-title a {
+        font-size: 24px;
+    }
+
+    .top-nav-links {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .top-nav-links a.button {
+        margin-left: 8px;
+        padding: 7px 14px;
+    }
+
+    /* Conteneur */
+    .container {
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    /* Footer */
+    .main-footer {
+        padding: 18px 8px;
+    }
+
+    /* Ajustements pour le contenu principal */
+    #content {
+        padding: 15px;
+    }
+}
+
+/* Desktop (écrans de 769px et plus) */
+@media (min-width: 769px) {
+    /* Le menu latéral est affiché sur les écrans larges */
+    #menu {
+        display: block;
+    }
+
+    /* Masque le menu burger sur les grands écrans */
+    .menu-toggle {
+        display: none;
+    }
+
+    /* Navigation */
+    .top-nav {
+        flex-direction: row;
+        padding: 15px 25px;
+    }
+
+    .top-nav-title a {
+        font-size: 28px;
+    }
+
+    .top-nav-links {
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    .top-nav-links a.button {
+        margin-left: 10px;
+        padding: 8px 16px;
+    }
+
+    /* Conteneur */
+    .container {
+        flex-direction: row;
+        padding: 20px;
+    }
+
+    /* Footer */
+    .main-footer {
+        padding: 20px 10px;
+    }
+
+    /* Liens dans le menu */
+    #menu a {
+        padding: 10px 15px;
+    }
+
+    /* Ajustements pour le contenu principal */
+    #content {
+        padding: 20px;
+    }
 }
