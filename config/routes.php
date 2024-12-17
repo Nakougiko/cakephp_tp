@@ -72,9 +72,11 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/users/forgotPassword', ['controller' => 'Users', 'action' => 'forgotPassword']);
 
-        // config/routes.php
+        // 
         $builder->connect('/menus/reorder', ['controller' => 'Menus', 'action' => 'reorder']);
 
+        //
+        $builder->connect('/', ['controller' => 'SleepLogs', 'action' => 'index']);
 
 
         /*

@@ -57,7 +57,7 @@ use Cake\Routing\Router;
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>TP</span> Lukas</a>
+            <a href="<?= $this->Url->build('/') ?>"><span style="color: #d33c43;">TP</span> Lukas</a>
         </div>
         <!-- Ajout d'un bouton hamburger dans le nav -->
         <div class="top-nav-links">
@@ -102,7 +102,7 @@ use Cake\Routing\Router;
 
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; <?= date('Y') ?> <a href="https://github.com/Nakougiko">GOULOIS Lukas</a>. Tous droits réservés.
+            <p>&copy; <?= date('Y') ?> <a href="https://github.com/Nakougiko" target="_blank">GOULOIS Lukas</a>. Tous droits réservés.
             </p>
             <p>Propulsé avec <a href="https://cakephp.org" target="_blank">CakePHP</a>.</p>
         </div>

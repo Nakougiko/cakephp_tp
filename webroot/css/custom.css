@@ -20,11 +20,14 @@ body, html {
     font-family: Arial, sans-serif;
     background-color: var(--bg-light);
     color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Conteneur principal */
 .container {
     display: flex;
+    flex: 1;
     padding: 20px;
     background-color: var(--text-light);
     border-radius: 8px;
@@ -82,7 +85,7 @@ body, html {
     color: #555;
     text-align: center;
     padding: 20px 10px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
@@ -129,7 +132,7 @@ body, html {
 }
 
 span {
-    color: var(--primary-color) !important;
+    color: var(--primary-color);
 }
 
 /* Menu latéral gauche */
