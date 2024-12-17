@@ -5,29 +5,18 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $menu->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $menu->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Menus'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
+    <div class="column column-100">
         <div class="menus form content">
             <?= $this->Form->create($menu) ?>
             <fieldset>
-                <legend><?= __('Edit Menu') ?></legend>
+                <legend><?= __('Modifier le menu') ?></legend>
                 <?php
-                    echo $this->Form->control('ordre');
-                    echo $this->Form->control('intitule');
-                    echo $this->Form->control('lien');
+                    echo $this->Form->control('ordre', ['label' => 'Ordre']);
+                    echo $this->Form->control('intitule', ['label' => 'Intitulé']);
+                    echo $this->Form->control('lien', ['label' => 'Lien']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Valider')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

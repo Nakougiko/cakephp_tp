@@ -8,10 +8,10 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Modifier l\'utilisateur'), ['action' => 'edit', $user->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Supprimer l\'utilisateur'), ['action' => 'delete', $user->id], ['confirm' => __('Êtes-vous sûr de vouloir supprimer l\'utilisateur # {0} ?', $user->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Liste des utilisateurs'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Nouvel utilisateur'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column column-80">
@@ -23,7 +23,7 @@
                     <td><?= h($user->nom) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Prenom') ?></th>
+                    <th><?= __('Prénom') ?></th>
                     <td><?= h($user->prenom) ?></td>
                 </tr>
                 <tr>
@@ -31,19 +31,19 @@
                     <td><?= h($user->email) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
+                    <th><?= __('Identifiant') ?></th>
                     <td><?= $this->Number->format($user->id) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Actif') ?></th>
-                    <td><?= $this->Number->format($user->actif) ?></td>
+                    <td><?= $user->actif ? __('Oui') : __('Non') ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
+                    <th><?= __('Créé le') ?></th>
                     <td><?= h($user->created) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Modified') ?></th>
+                    <th><?= __('Modifié le') ?></th>
                     <td><?= h($user->modified) ?></td>
                 </tr>
             </table>

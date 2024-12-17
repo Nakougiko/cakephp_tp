@@ -5,27 +5,21 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
+    <div class="column column-100">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
-                <legend><?= __('Add User') ?></legend>
+                <legend><?= __('Ajouter un utilisateur') ?></legend>
                 <?php
-                    echo $this->Form->control('actif');
-                    echo $this->Form->control('nom');
-                    echo $this->Form->control('prenom');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('observation');
+                    echo $this->Form->control('actif', ['label' => 'Actif']);
+                    echo $this->Form->control('nom', ['label' => 'Nom']);
+                    echo $this->Form->control('prenom', ['label' => 'Prénom']);
+                    echo $this->Form->control('email', ['label' => 'Email']);
+                    echo $this->Form->control('password', ['label' => 'Mot de passe']);
+                    echo $this->Form->control('observation', ['label' => 'Observation']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Soumettre')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

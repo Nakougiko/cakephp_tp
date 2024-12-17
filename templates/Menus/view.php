@@ -8,10 +8,10 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Menu'), ['action' => 'edit', $menu->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Menu'), ['action' => 'delete', $menu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $menu->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Menus'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Menu'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Modifier le menu'), ['action' => 'edit', $menu->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Supprimer le menu'), ['action' => 'delete', $menu->id], ['confirm' => __('Êtes-vous sûr de vouloir supprimer le menu # {0} ?', $menu->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Liste des menus'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Nouveau menu'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column column-80">
@@ -19,7 +19,7 @@
             <h3><?= h($menu->intitule) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Intitule') ?></th>
+                    <th><?= __('Intitulé') ?></th>
                     <td><?= h($menu->intitule) ?></td>
                 </tr>
                 <tr>
@@ -27,7 +27,7 @@
                     <td><?= h($menu->lien) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
+                    <th><?= __('ID') ?></th>
                     <td><?= $this->Number->format($menu->id) ?></td>
                 </tr>
                 <tr>
@@ -35,11 +35,11 @@
                     <td><?= $this->Number->format($menu->ordre) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
+                    <th><?= __('Créé le') ?></th>
                     <td><?= h($menu->created) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Modified') ?></th>
+                    <th><?= __('Modifié le') ?></th>
                     <td><?= h($menu->modified) ?></td>
                 </tr>
             </table>

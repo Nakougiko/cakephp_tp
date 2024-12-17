@@ -5,19 +5,19 @@
  */
 ?>
 <div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
+    <?= $this->Html->link(__('Nouvel utilisateur'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h3><?= __('Utilisateurs') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('actif') ?></th>
-                    <th><?= $this->Paginator->sort('nom') ?></th>
-                    <th><?= $this->Paginator->sort('prenom') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('id', __('Identifiant')) ?></th>
+                    <th><?= $this->Paginator->sort('actif', __('Actif')) ?></th>
+                    <th><?= $this->Paginator->sort('nom', __('Nom')) ?></th>
+                    <th><?= $this->Paginator->sort('prenom', __('Prénom')) ?></th>
+                    <th><?= $this->Paginator->sort('email', __('Email')) ?></th>
+                    <th><?= $this->Paginator->sort('created', __('Créé le')) ?></th>
+                    <th><?= $this->Paginator->sort('modified', __('Modifié le')) ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -25,16 +25,16 @@
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?= $this->Number->format($user->id) ?></td>
-                    <td><?= $this->Number->format($user->actif) ?></td>
+                    <td><?= $user->actif ? __('Oui') : __('Non') ?></td>
                     <td><?= h($user->nom) ?></td>
                     <td><?= h($user->prenom) ?></td>
                     <td><?= h($user->email) ?></td>
                     <td><?= h($user->created) ?></td>
                     <td><?= h($user->modified) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                        <?= $this->Html->link(__('Voir'), ['action' => 'view', $user->id]) ?>
+                        <?= $this->Html->link(__('Modifier'), ['action' => 'edit', $user->id]) ?>
+                        <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $user->id], ['confirm' => __('Êtes-vous sûr de vouloir supprimer l\'utilisateur # {0} ?', $user->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -43,12 +43,12 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('Premier')) ?>
+            <?= $this->Paginator->prev('< ' . __('Précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Suivant') . ' >') ?>
+            <?= $this->Paginator->last(__('Dernier') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, affichant {{current}} enregistrement(s) sur un total de {{count}}')) ?></p>
     </div>
 </div>
