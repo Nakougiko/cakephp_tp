@@ -38,7 +38,7 @@ class SleepLog extends Entity
         'date' => true,
         'bedtime' => true,
         'wake_time' => true,
-        //'cycles_count' => true,
+        'cycles_count' => true,
         'nap_afternoon' => true,
         'nap_evening' => true,
         'morning_form_score' => true,
@@ -46,4 +46,6 @@ class SleepLog extends Entity
         'sports_activity' => true,
         'user' => true,
     ];
+
+    protected $_dates = ['date'];
 }

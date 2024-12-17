@@ -6,6 +6,7 @@
 ?>
 <div class="sleepLogs index content">
     <?= $this->Html->link(__('Nouveau journal de sommeil'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('Données de la semaine'), ['action' => 'weekData'], ['class' => 'button float-right', 'style' => 'margin-right: 15px;']) ?>
     <h3><?= __('Mes journaux de sommeil') ?></h3>
     <div class="table-responsive">
         <table>
@@ -33,8 +34,6 @@
                         $cycleDuration = 90;
                         // Nombre minimum de cycles pour avoir l'indicateur vert
                         $minimumCycles = 5;
-                        // Temps minimum en minutes (450 minutes pour 5 cycles)
-                        $minimumSleepTime = $minimumCycles * $cycleDuration;
 
                         // Récupération des timestamps Unix
                         $bedtimeTimestamp = $sleepLog->bedtime->format('U');
@@ -43,8 +42,11 @@
                         // Calcul de la durée de sommeil en minutes
                         $sleepDurationMinutes = ($wakeTimeTimestamp - $bedtimeTimestamp) / 60;
 
-                        // Vérification si la durée respecte les conditions pour un bon sommeil
-                        if ($sleepDurationMinutes >= $minimumSleepTime - 10) {
+                        // Calcul du nombre de cycles de sommeil
+                        $cyclesCount = floor($sleepDurationMinutes / $cycleDuration);
+
+                        // Vérification si le nombre de cycles respecte les conditions pour un bon sommeil
+                        if ($cyclesCount >= $minimumCycles) {
                             echo '<span style="color: green; margin-left: 5px;">🟢</span>'; // Indicateur vert
                         } else {
                             echo '<span style="color: red; margin-left: 5px;">🔴</span>'; // Indicateur rouge

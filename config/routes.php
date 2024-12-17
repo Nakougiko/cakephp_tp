@@ -75,8 +75,7 @@ return function (RouteBuilder $routes): void {
         // 
         $builder->connect('/menus/reorder', ['controller' => 'Menus', 'action' => 'reorder']);
 
-        //
-        $builder->connect('/', ['controller' => 'SleepLogs', 'action' => 'index']);
+        $builder->connect('/sleepLogs', ['controller' => 'SleepLogs', 'action' => 'index']);
 
 
         /*

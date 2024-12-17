@@ -67,7 +67,7 @@ class SleepLogsController extends AppController
         if ($this->request->is('post')) {
             // Récupérer l'utilisateur actuellement connecté
             $user = $this->Authentication->getIdentity();
-            
+
             // Vérifier si l'utilisateur est authentifié
             if ($user) {
                 // Assigner l'ID de l'utilisateur à l'entité SleepLog
@@ -77,14 +77,14 @@ class SleepLogsController extends AppController
                 $this->Flash->error(__('Vous devez être connecté pour ajouter un journal de sommeil.'));
                 return $this->redirect(['controller' => 'Users', 'action' => 'login']);
             }
-    
+
             // Récupérer les données du formulaire et les associer à l'entité
             $sleepLog = $this->SleepLogs->patchEntity($sleepLog, $this->request->getData());
-    
+
             // Calcul des cycles
             $analysis = $this->SleepLogs->calculateSleepCycles($sleepLog->bedtime, $sleepLog->wake_time);
             $sleepLog->cycles_count = floor($analysis['cycles']); // Arrondir à l'entier inférieur
-    
+
             // Sauvegarder l'entité
             if ($this->SleepLogs->save($sleepLog)) {
                 $this->Flash->success(__('Le journal de sommeil a été ajouté avec succès.'));
@@ -94,7 +94,7 @@ class SleepLogsController extends AppController
             }
         }
         $this->set(compact('sleepLog'));
-    }    
+    }
 
     /**
      * Edit method
@@ -138,4 +138,44 @@ class SleepLogsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function weekData()
+    {
+        // Récupère la date de début et de fin de la semaine en cours
+        $currentDate = new \DateTime();
+        $currentWeekStart = $currentDate->modify('monday this week')->format('Y-m-d');
+        $currentWeekEnd = $currentDate->modify('sunday this week')->format('Y-m-d');
+    
+        // Récupère la date de début et de fin de la semaine précédente
+        $previousWeekStart = $currentDate->modify('monday last week')->format('Y-m-d');
+        $previousWeekEnd = $currentDate->modify('sunday last week')->format('Y-m-d');
+    
+        // Récupère la date de début et de fin de la semaine suivante
+        $nextWeekStart = $currentDate->modify('monday next week')->format('Y-m-d');
+        $nextWeekEnd = $currentDate->modify('sunday next week')->format('Y-m-d');
+    
+        // Récupérer les logs de sommeil de la semaine en cours
+        $sleepLogs = $this->paginate(
+            $this->SleepLogs->find()
+                ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
+                ->order(['date' => 'DESC']) // Optionnel : ordre décroissant des dates
+        );
+    
+        // Calcul des totaux des cycles
+        $totalCycles = $this->SleepLogs->find()
+            ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
+            ->select(['total_cycles' => $this->SleepLogs->find()->func()->sum('cycles_count')])
+            ->first();
+    
+        $totalCycles = $totalCycles ? $totalCycles->total_cycles : 0;
+    
+        // Calcul du nombre de jours consécutifs
+        $maxConsecutiveDays = 0;
+        $currentConsecutiveDays = 1;
+
+    
+        // Passer les dates à la vue
+        $this->set(compact('sleepLogs', 'totalCycles', 'maxConsecutiveDays', 'currentWeekStart', 'currentWeekEnd', 'previousWeekStart', 'previousWeekEnd', 'nextWeekStart', 'nextWeekEnd'));
+    }
+    
 }
