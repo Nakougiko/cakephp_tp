@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -145,37 +146,52 @@ class SleepLogsController extends AppController
         $currentDate = new \DateTime();
         $currentWeekStart = $currentDate->modify('monday this week')->format('Y-m-d');
         $currentWeekEnd = $currentDate->modify('sunday this week')->format('Y-m-d');
-    
+
         // Récupère la date de début et de fin de la semaine précédente
         $previousWeekStart = $currentDate->modify('monday last week')->format('Y-m-d');
         $previousWeekEnd = $currentDate->modify('sunday last week')->format('Y-m-d');
-    
+
         // Récupère la date de début et de fin de la semaine suivante
         $nextWeekStart = $currentDate->modify('monday next week')->format('Y-m-d');
         $nextWeekEnd = $currentDate->modify('sunday next week')->format('Y-m-d');
-    
+
         // Récupérer les logs de sommeil de la semaine en cours
         $sleepLogs = $this->paginate(
             $this->SleepLogs->find()
                 ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
                 ->order(['date' => 'DESC']) // Optionnel : ordre décroissant des dates
         );
-    
+
         // Calcul des totaux des cycles
         $totalCycles = $this->SleepLogs->find()
             ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
             ->select(['total_cycles' => $this->SleepLogs->find()->func()->sum('cycles_count')])
             ->first();
-    
+
         $totalCycles = $totalCycles ? $totalCycles->total_cycles : 0;
-    
+
+        // Récupérer les cycles par jour pour la semaine en cours
+        $sleepLogsByDate = $this->SleepLogs->find()
+            ->select(['date', 'cycles_count'])
+            ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
+            ->order(['date' => 'ASC'])
+            ->all();
+
+
         // Calcul du nombre de jours consécutifs
         $maxConsecutiveDays = 0;
-        $currentConsecutiveDays = 1;
+        $currentConsecutiveDays = 0;
 
-    
+        foreach ($sleepLogsByDate as $log) {
+            if ($log->cycles_count >= 5) {
+                $currentConsecutiveDays++;
+                $maxConsecutiveDays = max($maxConsecutiveDays, $currentConsecutiveDays);
+            } else {
+                $currentConsecutiveDays = 0;
+            }
+        }
+
         // Passer les dates à la vue
         $this->set(compact('sleepLogs', 'totalCycles', 'maxConsecutiveDays', 'currentWeekStart', 'currentWeekEnd', 'previousWeekStart', 'previousWeekEnd', 'nextWeekStart', 'nextWeekEnd'));
     }
-    
 }
