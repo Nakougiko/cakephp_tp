@@ -12,7 +12,6 @@
             <fieldset>
                 <legend><?= __('Modifier le journal de sommeil') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utilisateur']);
                     echo $this->Form->control('date', ['label' => 'Date']);
                     echo $this->Form->control('bedtime', ['label' => 'Heure du coucher', 'type' => 'time', 'id' => 'bedtime']);
                     echo $this->Form->control('wake_time', ['label' => 'Heure du réveil', 'type' => 'time', 'id' => 'wake_time']);

@@ -142,28 +142,85 @@ class SleepLogsController extends AppController
 
     public function weekData()
     {
-        // Récupère la date de début et de fin de la semaine en cours
-        $currentDate = new \DateTime();
-        $currentWeekStart = $currentDate->modify('monday this week')->format('Y-m-d');
-        $currentWeekEnd = $currentDate->modify('sunday this week')->format('Y-m-d');
 
-        // Récupère la date de début et de fin de la semaine précédente
-        $previousWeekStart = $currentDate->modify('monday last week')->format('Y-m-d');
-        $previousWeekEnd = $currentDate->modify('sunday last week')->format('Y-m-d');
+        // Récupérer l'utilisateur connecté
+        $user = $this->Authentication->getIdentity();
 
-        // Récupère la date de début et de fin de la semaine suivante
-        $nextWeekStart = $currentDate->modify('monday next week')->format('Y-m-d');
-        $nextWeekEnd = $currentDate->modify('sunday next week')->format('Y-m-d');
+        // Vérifier si l'utilisateur est authentifié
+        if (!$user) {
+            $this->Flash->error(__('Vous devez être connecté pour accéder à vos données de la semaine.'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
 
-        // Récupérer les logs de sommeil de la semaine en cours
+        // Récupérer les paramètres 'start' et 'end' depuis la requête GET
+        $start = $this->request->getQuery('start');
+        $end = $this->request->getQuery('end');
+
+        // Si les paramètres ne sont pas définis, utiliser la semaine actuelle par défaut
+        if (!$start || !$end) {
+            $currentDate = new \DateTime();
+            $currentWeekStart = $currentDate->modify('monday this week')->format('Y-m-d');
+            $currentWeekEnd = $currentDate->modify('sunday this week')->format('Y-m-d');
+        } else {
+            // Utiliser les dates passées dans la requête
+            $currentWeekStart = $start;
+            $currentWeekEnd = $end;
+        }
+
+        // Calcul de la semaine précédente et suivante
+        $previousWeekStart = date('Y-m-d', strtotime($currentWeekStart . ' - 7 days'));
+        $previousWeekEnd = date('Y-m-d', strtotime($currentWeekEnd . ' - 7 days'));
+        $nextWeekStart = date('Y-m-d', strtotime($currentWeekStart . ' + 7 days'));
+        $nextWeekEnd = date('Y-m-d', strtotime($currentWeekEnd . ' + 7 days'));
+
+        // Récupérer les logs de sommeil pour la semaine en cours
         $sleepLogs = $this->paginate(
             $this->SleepLogs->find()
+                ->where(['user_id' => $user->get('id')])
                 ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
-                ->order(['date' => 'DESC']) // Optionnel : ordre décroissant des dates
+                ->order(['date' => 'ASC'])
         );
 
-        // Calcul des totaux des cycles
+        // Créer un tableau pour les jours de la semaine avec les données par jour
+        $sleepDataByDays = [
+            "Lundi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Mardi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Mercredi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Jeudi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Vendredi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Samedi" => ["cycles_count" => 0, "morning_form_score" => 0],
+            "Dimanche" => ["cycles_count" => 0, "morning_form_score" => 0]
+        ];
+
+        // Remplir le tableau avec les données
+        foreach ($sleepLogs as $log) {
+            // Récupérer le jour de la semaine 
+            $dayOfWeek = $log->date->format('l');
+
+            // Mapper les jours de la semaine en français
+            $daysInFrench = [
+                'Monday' => 'Lundi',
+                'Tuesday' => 'Mardi',
+                'Wednesday' => 'Mercredi',
+                'Thursday' => 'Jeudi',
+                'Friday' => 'Vendredi',
+                'Saturday' => 'Samedi',
+                'Sunday' => 'Dimanche'
+            ];
+
+            // Vérifier si le jour existe dans le tableau
+            if (isset($daysInFrench[$dayOfWeek])) {
+                // Ajouter le nombre de cycles
+                $sleepDataByDays[$daysInFrench[$dayOfWeek]]['cycles_count'] += $log->cycles_count;
+
+                // Ajouter le score de forme matinale
+                $sleepDataByDays[$daysInFrench[$dayOfWeek]]['morning_form_score'] += $log->morning_form_score;
+            }
+        }
+
+        // Calcul des totaux des cycles pour la semaine en cours
         $totalCycles = $this->SleepLogs->find()
+            ->where(['user_id' => $user->get('id')])
             ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
             ->select(['total_cycles' => $this->SleepLogs->find()->func()->sum('cycles_count')])
             ->first();
@@ -173,12 +230,12 @@ class SleepLogsController extends AppController
         // Récupérer les cycles par jour pour la semaine en cours
         $sleepLogsByDate = $this->SleepLogs->find()
             ->select(['date', 'cycles_count'])
+            ->where(['user_id' => $user->get('id')])
             ->where(['date >=' => $currentWeekStart, 'date <=' => $currentWeekEnd])
             ->order(['date' => 'ASC'])
             ->all();
 
-
-        // Calcul du nombre de jours consécutifs
+        // Calcul du nombre de jours consécutifs où le nombre de cycles est >= 5
         $maxConsecutiveDays = 0;
         $currentConsecutiveDays = 0;
 
@@ -191,7 +248,7 @@ class SleepLogsController extends AppController
             }
         }
 
-        // Passer les dates à la vue
-        $this->set(compact('sleepLogs', 'totalCycles', 'maxConsecutiveDays', 'currentWeekStart', 'currentWeekEnd', 'previousWeekStart', 'previousWeekEnd', 'nextWeekStart', 'nextWeekEnd'));
+        // Passer les données à la vue
+        $this->set(compact('sleepLogs', 'totalCycles', 'maxConsecutiveDays', 'currentWeekStart', 'currentWeekEnd', 'previousWeekStart', 'previousWeekEnd', 'nextWeekStart', 'nextWeekEnd', 'sleepDataByDays'));
     }
 }
