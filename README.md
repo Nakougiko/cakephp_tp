@@ -1,53 +1,111 @@
-# CakePHP Application Skeleton
+# CakePHP TP - Gestion du sommeil
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+## 📌 Description
+Ce projet a été réalisé dans le cadre de mes études en Licence Professionnelle. Il s'agit d'une application web développée avec **CakePHP**, comprenant :
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 5.x.
+- Une **page de connexion** (login)
+- Un **trackeur de sommeil** avec affichage graphique et comptage des cycles de sommeil
+- Une **gestion des menus** avec un système de **drag & drop**
+- Une **gestion des utilisateurs** (affichage, modification et suppression de comptes)
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+## 🛠️ Technologies utilisées
+- **CakePHP** (framework PHP)
+- **MySQL / MariaDB** (base de données)
+- **JavaScript** (interactions dynamiques, notamment pour le drag & drop)
+- **Bootstrap** (mise en page et design)
+- **Chart.js** (visualisation des données du sommeil)
 
-## Installation
+## 📂 Structure du projet
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
-
-If Composer is installed globally, run
-
-```bash
-composer create-project --prefer-dist cakephp/app
+```
+.
+├── app/
+│   ├── Controller/
+│   ├── Model/
+│   ├── View/
+│   ├── Template/
+│   └── Config/
+├── webroot/
+│   ├── css/
+│   ├── js/
+│   └── img/
+├── logs/
+├── tmp/
+└── README.md
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+## 🚀 Installation
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
+1. **Cloner le dépôt** :
+   ```sh
+   git clone https://github.com/Nakougiko/cakephp_tp.git
+   cd cakephp_tp
+   ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+2. **Installer les dépendances via Composer** :
+   ```sh
+   composer install
+   ```
 
-```bash
-bin/cake server -p 8765
-```
+3. **Configurer la base de données** :
+   - Modifier `config/app.php` avec vos paramètres MySQL / MariaDB
+   - Importer le fichier SQL (s'il est fourni) dans votre base de données
 
-Then visit `http://localhost:8765` to see the welcome page.
+4. **Lancer le serveur de développement** :
+   ```sh
+   bin/cake server
+   ```
+   L'application sera accessible sur `http://localhost:8765`
 
-## Update
+## 📌 Fonctionnalités principales
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+### 🔐 Authentification
+- Système de connexion sécurisé avec email et mot de passe.
+- Gestion des sessions utilisateur.
 
-## Configuration
+### 🌙 Suivi du sommeil
+- Interface permettant d'ajouter et de suivre ses cycles de sommeil.
+- Affichage de graphiques via **Chart.js**.
+- Calcul automatique des cycles de sommeil.
 
-Read and edit the environment specific `config/app_local.php` and set up the
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
+### 📋 Gestion des menus (Drag & Drop)
+- Interface intuitive pour organiser les menus.
+- Drag & Drop pour réordonner les éléments.
+- Sauvegarde des modifications en base de données.
 
-## Layout
+### 👤 Gestion des utilisateurs
+- Affichage de la liste des utilisateurs.
+- Modification des informations utilisateur.
+- Suppression des comptes.
 
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+## 🌐 Hébergement
+Ce projet est hébergé sur **Alwaysdata** : [gouloislukas.alwaysdata.net](https://gouloislukas.alwaysdata.net/).
+
+### 📢 Instructions de déploiement sur Alwaysdata
+1. **Créer un compte sur [Alwaysdata](https://www.alwaysdata.com/en/)**.
+2. **Déployer les fichiers CakePHP sur le serveur distant**.
+3. **Configurer la base de données** dans l'interface Alwaysdata.
+4. **Mettre à jour le fichier `config/app.php`** avec les informations de connexion à la base de données distante.
+5. **S'assurer que les permissions des fichiers et dossiers sont bien définies**.
+6. **Accéder au site via l'URL fournie par Alwaysdata**.
+
+## 🖼️ Aperçu
+![Capture d'écran 2025-03-04 234448](https://github.com/user-attachments/assets/f6e3e61d-4c78-4c56-b147-91e598ca00fe)
+---
+![Capture d'écran 2025-03-04 234542](https://github.com/user-attachments/assets/a3bc7d07-a3c4-4d4a-847e-c72348c2b2fe)
+
+
+## 📝 To-Do / Améliorations possibles
+- ✅ Page de connexion
+- ✅ Suivi du sommeil avec graphique
+- ✅ Gestion dynamique des menus
+- ✅ Gestion des utilisateurs
+- 🔲 Améliorer l'interface utilisateur
+- 🔲 Ajouter un mode sombre
+- 🔲 Ajouter des statistiques avancées sur le sommeil
+
+## 📜 Licence
+Ce projet est sous licence MIT.
+
+## ✉️ Contact
+Si vous avez des questions ou des suggestions, vous pouvez me contacter via **[GitHub](https://github.com/Nakougiko)** ou via l'email disponible sur le site.
